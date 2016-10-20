@@ -394,7 +394,7 @@
         	<dependency>
 				<groupId>eu.dnetlib</groupId>
 				<artifactId>dnet-openaire-data-protos</artifactId>
-				<version>[3.0.0, 4.0.0)</version>
+				<version>3.7.0</version>
 			</dependency>
 			
 			<dependency>
