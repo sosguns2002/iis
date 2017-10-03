@@ -1,0 +1,3 @@
+{"documentId": "docId1", "conceptId": "conceptId1", "confidenceLevel": 1}
+{"documentId": "docId2", "conceptId": "conceptId2", "confidenceLevel": 1}
+{"documentId": "docId2", "conceptId": "conceptId3", "confidenceLevel": 1}

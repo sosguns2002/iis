@@ -174,6 +174,16 @@
                 Set to 'a^' by default to guarantee nothing will be matched.
             </description>
         </property>
+        <property>
+            <name>document_concept_blacklist_csv</name>
+            <value>$UNDEFINED$</value>
+            <description>document to concept blacklist defined as CSV. This parameter will provide list of pairs {pubID, VO} in the following format:
+            pubId1,vo1;pubId2,vo2,vo3
+            where two kinds of delimiters are used:
+            * ',' separating publication identifier from one or more virtual organizations (also used for separating VOs when more than one specified)
+            * ';' separating sets of blacklisting specifications for publication
+            </description>
+        </property>
         <!-- action set id properties -->
         <property>
             <name>export_action_set_id</name>
@@ -354,10 +364,6 @@
                     <name>active_import_dataset</name>
                     <value>${active_referenceextraction_dataset}</value>
                 </property>
-                <property>
-                    <name>active_import_concept</name>
-                    <value>${active_referenceextraction_project}</value>
-                </property>
                 <!-- import metadata related -->
                 <property>
                     <name>hbase_dump_location</name>
@@ -479,6 +485,10 @@
                     <value>${workingDir}/primary_import/project-concept</value>
                 </property>
                 <property>
+                    <name>output_document_concept_blacklist</name>
+                    <value>${workingDir}/preprocessing_import/document-concept-blacklist</value>
+                </property>
+                <property>
                     <name>output_wos</name>
                     <value>${workingDir}/primary_import/wos</value>
                 </property>
@@ -544,6 +554,10 @@
                 <property>
                     <name>input_project_concept</name>
                     <value>${workingDir}/primary_import/project-concept</value>
+                </property>
+                <property>
+                    <name>input_document_concept_blacklist</name>
+                    <value>${workingDir}/preprocessing_import/document-concept-blacklist</value>
                 </property>
                 <property>
                     <name>output_document_to_project</name>

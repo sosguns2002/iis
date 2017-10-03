@@ -1,4 +1,4 @@
-<workflow-app xmlns="uri:oozie:workflow:0.4" name="test-transformers_export_concepts">
+<workflow-app xmlns="uri:oozie:workflow:0.4" name="test-transformers_export_concepts_filtered">
 
     <global>
         <job-tracker>${jobTracker}</job-tracker>
@@ -29,16 +29,20 @@
 			<arg>eu.dnetlib.iis.common.java.jsonworkflownodes.Producer</arg>
             <arg>-C{document_to_concept_id,
 				eu.dnetlib.iis.referenceextraction.researchinitiative.schemas.DocumentToConceptId,
-				eu/dnetlib/iis/wf/transformers/export/concepts/test/data/document_to_concept_id.json}</arg>
+				eu/dnetlib/iis/wf/transformers/export/concepts/filter/test/data/document_to_concept_id.json}</arg>
+            <arg>-C{document_to_concept_id_blacklist,
+                eu.dnetlib.iis.referenceextraction.researchinitiative.schemas.DocumentToConceptId,
+                eu/dnetlib/iis/wf/transformers/export/concepts/filter/test/data/document_to_concept_id_blacklist.json}</arg>
             <arg>-Odocument_to_concept_id=${workingDir}/producer/output</arg>
+            <arg>-Odocument_to_concept_id_blacklist=${workingDir}/producer/output_blacklist</arg>
         </java>
-        <ok to="transformer_export_concepts"/>
+        <ok to="transformer_filter_concepts"/>
         <error to="fail"/>
     </action>
     
-    <action name="transformer_export_concepts">
+    <action name="transformer_filter_concepts">
         <sub-workflow>
-            <app-path>${wf:appPath()}/transformer_export_concepts</app-path>
+            <app-path>${wf:appPath()}/transformer_filter_concepts</app-path>
             <configuration>
                 <property>
                     <name>jobTracker</name>
@@ -57,32 +61,16 @@
                     <value>${oozieLauncherQueueName}</value>
                 </property>
                 <property>
-                    <name>workingDir</name>
-                    <value>${workingDir}/transformer_export_concepts/working_dir</value>
-                </property>
-                <property>
                     <name>input</name>
                     <value>${workingDir}/producer/output</value>
                 </property>
                 <property>
+                    <name>input_blacklist</name>
+                    <value>${workingDir}/producer/output_blacklist</value>
+                </property>
+                <property>
                     <name>output</name>
                     <value>${workingDir}/transformer_export_concepts/output</value>
-                </property>
-                <property>
-                    <name>output_report_root_path</name>
-                    <value>${workingDir}/report</value>
-                </property>
-                <property>
-                    <name>output_report_relative_path</name>
-                    <value>doc_concept</value>
-                </property>
-                 <property>
-                    <name>output_report_record_read_counter_name</name>
-                    <value>processing.referenceExtraction.concept.reference</value>
-                </property>
-                <property>
-                    <name>output_report_record_written_counter_name</name>
-                    <value>processing.referenceExtraction.concept.doc</value>
                 </property>
             </configuration>
         </sub-workflow>
@@ -95,14 +83,9 @@
 			<main-class>eu.dnetlib.iis.common.java.ProcessWrapper</main-class>
 			<arg>eu.dnetlib.iis.common.java.jsonworkflownodes.TestingConsumer</arg>
 			<arg>-C{output,
-				eu.dnetlib.iis.export.schemas.DocumentToConceptIds,
-				eu/dnetlib/iis/wf/transformers/export/concepts/test/data/document_to_concept_ids.json}</arg>
-			<arg>-C{report,
-                 eu.dnetlib.iis.common.schemas.ReportEntry,
-                 eu/dnetlib/iis/wf/transformers/export/concepts/test/data/report.json}
-            </arg>  
+				eu.dnetlib.iis.referenceextraction.researchinitiative.schemas.DocumentToConceptId,
+				eu/dnetlib/iis/wf/transformers/export/concepts/filter/test/data/document_to_concept_id_output.json}</arg>
 			<arg>-Ioutput=${workingDir}/transformer_export_concepts/output</arg>
-		    <arg>-Ireport=${workingDir}/report/doc_concept</arg>
         </java>
 		<ok to="end" />
 		<error to="fail" />

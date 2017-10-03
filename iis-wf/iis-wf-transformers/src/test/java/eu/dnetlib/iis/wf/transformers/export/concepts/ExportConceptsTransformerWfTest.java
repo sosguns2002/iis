@@ -14,12 +14,26 @@ import eu.dnetlib.iis.common.OozieWorkflowTestConfiguration;
  */
 @Category(IntegrationTest.class)
 public class ExportConceptsTransformerWfTest extends AbstractOozieWorkflowTestCase {
+    
+    @Test
+    public void testFilterWorkflow() throws Exception {
+        OozieWorkflowTestConfiguration wf = new OozieWorkflowTestConfiguration();
+        wf.setTimeoutInSeconds(720);
+        testWorkflow("eu/dnetlib/iis/wf/transformers/export/concepts/filter/test", wf);
+    }
+    
+    @Test
+    public void testGroupWorkflow() throws Exception {
+        OozieWorkflowTestConfiguration wf = new OozieWorkflowTestConfiguration();
+        wf.setTimeoutInSeconds(720);
+        testWorkflow("eu/dnetlib/iis/wf/transformers/export/concepts/group/test", wf);
+    }
 
     @Test
-	public void testWorkflow() throws Exception {
-    	OozieWorkflowTestConfiguration wf = new OozieWorkflowTestConfiguration();
+    public void testChainWorkflow() throws Exception {
+        OozieWorkflowTestConfiguration wf = new OozieWorkflowTestConfiguration();
         wf.setTimeoutInSeconds(720);
-        testWorkflow("eu/dnetlib/iis/wf/transformers/export/concepts/test", wf);
+        testWorkflow("eu/dnetlib/iis/wf/transformers/export/concepts/chain/test", wf);
     }
 
 }

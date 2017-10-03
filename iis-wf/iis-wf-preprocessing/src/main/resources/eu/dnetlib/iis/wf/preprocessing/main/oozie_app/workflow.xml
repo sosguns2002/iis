@@ -132,6 +132,16 @@
 				Set to 'a^' by default to guarantee nothing will be matched.
 			</description>
 		</property>
+        <property>
+            <name>document_concept_blacklist_csv</name>
+            <value>$UNDEFINED$</value>
+            <description>document to concept blacklist defined as CSV. This parameter will provide list of pairs {pubID, VO} in the following format:
+            pubId1,vo1;pubId2,vo2,vo3
+            where two kinds of delimiters are used:
+            * ',' separating publication identifier from one or more virtual organizations (also used for separating VOs when more than one specified)
+            * ';' separating sets of blacklisting specifications for publication
+            </description>
+        </property>
 		<!-- action set id properties -->
 		<property>
 			<name>export_action_set_id</name>
@@ -362,6 +372,10 @@
 					<name>output_project_concept</name>
 					<value>${workingDir}/preprocessing_import/project-concept</value>
 				</property>
+                <property>
+                    <name>output_document_concept_blacklist</name>
+                    <value>${workingDir}/preprocessing_import/document-concept-blacklist</value>
+                </property>
 				<property>
 					<name>output_faults</name>
 					<value>${workingDir}/preprocessing_import/faults</value>
@@ -537,6 +551,10 @@
 					<name>input</name>
 					<value>${workingDir}/transformers_project_toconcept/out</value>
 				</property>
+                <property>
+                    <name>input_blacklist</name>
+                    <value>${workingDir}/preprocessing_import/document-concept-blacklist</value>
+                </property>
 				<property>
 					<name>output</name>
 					<value>${workingDir}/transformers_concept_to_researchinitiatives/out</value>

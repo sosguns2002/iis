@@ -1,0 +1,3 @@
+## This is a classpath-based import file (this header is required)
+transformer_filter_concepts classpath eu/dnetlib/iis/wf/transformers/export/concepts/filter/oozie_app
+transformer_group_concepts classpath eu/dnetlib/iis/wf/transformers/export/concepts/group/oozie_app

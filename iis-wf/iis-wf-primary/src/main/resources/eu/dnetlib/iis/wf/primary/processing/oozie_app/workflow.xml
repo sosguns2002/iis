@@ -96,6 +96,10 @@
             <name>input_project_concept</name>
             <description>input project concept directory</description>
         </property>
+        <property>
+            <name>input_document_concept_blacklist</name>
+            <description>set of document to concept relations to be blacklisted</description>
+        </property>
         <!-- project reference extraction related -->
         <property>
             <name>referenceextraction_project_fundingclass_blacklist_regex</name>
@@ -532,6 +536,10 @@
                     <value>${workingDir}/transformers_project_toconcept/out</value>
                 </property>
                 <property>
+                    <name>input_blacklist</name>
+                    <value>${input_document_concept_blacklist}</value>
+                </property>
+                <property>
                     <name>output</name>
                     <value>${output_document_to_project_concepts}</value>
                 </property>
@@ -677,7 +685,7 @@
 
     <action name="transformers_export_pdb">
         <sub-workflow>
-            <app-path>${wf:appPath()}/transformers_export_concepts</app-path>
+            <app-path>${wf:appPath()}/transformers_group_concepts</app-path>
             <propagate-configuration />
             <configuration>
                 <property>
@@ -912,6 +920,10 @@
                 <property>
                     <name>input</name>
                     <value>${workingDir}/transformers_common_union_researchinitiatives/output</value>
+                </property>
+                <property>
+                    <name>input_blacklist</name>
+                    <value>${input_document_concept_blacklist}</value>
                 </property>
                 <property>
                     <name>output</name>

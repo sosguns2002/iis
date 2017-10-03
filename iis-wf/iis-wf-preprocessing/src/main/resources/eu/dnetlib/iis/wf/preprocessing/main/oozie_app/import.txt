@@ -5,6 +5,6 @@ referenceextraction_project classpath eu/dnetlib/iis/wf/referenceextraction/proj
 referenceextraction_dataset classpath eu/dnetlib/iis/wf/referenceextraction/dataset/main/oozie_app
 transformers_project_filter classpath eu/dnetlib/iis/wf/referenceextraction/project/input_filter/oozie_app
 transformers_project_toconcept classpath eu/dnetlib/iis/wf/referenceextraction/project/to_concept/oozie_app
-transformers_export_concepts classpath eu/dnetlib/iis/wf/transformers/export/concepts/oozie_app
+transformers_export_concepts classpath eu/dnetlib/iis/wf/transformers/export/concepts/chain/oozie_app
 preprocessing_export classpath eu/dnetlib/iis/wf/preprocessing/export/oozie_app
 preprocessing_report classpath eu/dnetlib/iis/wf/report/builder/oozie_app
