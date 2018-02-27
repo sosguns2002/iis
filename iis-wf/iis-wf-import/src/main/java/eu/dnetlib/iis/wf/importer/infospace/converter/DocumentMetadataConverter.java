@@ -99,12 +99,35 @@ public class DocumentMetadataConverter implements OafEntityToAvroConverter<Docum
             handlePublisher(sourceResult.getMetadata().getPublisher(), metaBuilder);
             handleJournal(sourceResult.getMetadata().getJournal(), metaBuilder);
             handleYear(sourceResult.getMetadata().getDateofacceptance(), metaBuilder);
-            handleKeywords(sourceResult.getMetadata().getSubjectList(), metaBuilder);    
+            handleKeywords(sourceResult.getMetadata().getSubjectList(), metaBuilder);  
+            handleUrls(sourceResult.getInstanceList(), metaBuilder);
         }
         
         return metaBuilder;
     }
 
+    private void handleUrls(List<Instance> instanceList, DocumentMetadata.Builder metaBuilder) {
+        if (CollectionUtils.isNotEmpty(instanceList)) {
+            for (Instance currentInstance : instanceList) {
+                if (approveAccessRight(currentInstance.getAccessright()) && 
+                        CollectionUtils.isNotEmpty(currentInstance.getUrlList())) {
+                    if (metaBuilder.getUrls() == null) {
+                        metaBuilder.setUrls(new ArrayList<>());
+                    }
+                    for (String currentUrl : currentInstance.getUrlList()) {
+                        if (StringUtils.isNotBlank(currentUrl)) {
+                            metaBuilder.getUrls().add(currentUrl);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    private boolean approveAccessRight(Qualifier accessRight) {
+        return accessRight != null && "OPEN".equals(accessRight.getClassid());
+    }
+    
     private void handleTitle(List<StructuredProperty> titleList, DocumentMetadata.Builder metaBuilder) {
         if (CollectionUtils.isNotEmpty(titleList)) {
             for (StructuredProperty titleProp : titleList) {

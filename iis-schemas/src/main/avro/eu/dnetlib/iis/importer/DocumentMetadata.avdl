@@ -48,6 +48,8 @@ protocol IIS{
 //      identifiers of datasources given document originates from
         union { null , array<string> } datasourceIds = null;
         
+        // set of OPEN access URLs
+        union { null , array<string> } urls = null;
     }
     
 }
